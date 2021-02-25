@@ -74,6 +74,7 @@
         var tiempo = 0;
         var temporizador ;
         var intentos = 0;
+        var clic = false;
         function carta(x,y,w,h,imagenFrente,imagenAtras){
             this.x = x;
             this.y = y;
@@ -129,6 +130,8 @@
         } 
 
         function voltear(e){
+            e.setAttribute('onclick',"");
+            e.classList.add('volteada');
             if(contadorVolteadas < 2){
                 let imagenX = e.getAttribute('carta');
                 if(contadorVolteadas == 0){
@@ -159,6 +162,13 @@
                                         document.getElementById('ganaste').style.display = 'block';
                                     }
                                 }
+                            }
+                        }else{
+                            let volteadas = document.getElementsByClassName('volteada');
+                            let cantidadVolteadas = volteadas.length - 1;
+                            for (let index = cantidadVolteadas; index >= 0; index--) {
+                                volteadas[index].setAttribute("onclick","voltear(this);")
+                                volteadas[index].classList.remove("volteada");
                             }
                         }
                         for(let cartaX of cartasArray){
